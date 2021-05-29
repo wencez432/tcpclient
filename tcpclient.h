@@ -2,6 +2,7 @@
 #define TCPCLIENT_H
 
 #include <QMainWindow>
+#include <QTcpSocket>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class TcpClient; }
@@ -15,7 +16,15 @@ public:
     TcpClient(QWidget *parent = nullptr);
     ~TcpClient();
 
+private slots:
+    void requestMessage();
+    void readMessage();
+    void showError(QAbstractSocket::SocketError socketError);
+
 private:
     Ui::TcpClient *ui;
+    QTcpSocket *qTcpSocket = nullptr;
+    QDataStream in;
+    QString recivedMessage;
 };
 #endif // TCPCLIENT_H
